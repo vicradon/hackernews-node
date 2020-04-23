@@ -13,7 +13,7 @@ const resolvers = {
   Subscription,
   User,
   Link,
-  Vote
+  Vote  
 }
 
 const server = new GraphQLServer({
