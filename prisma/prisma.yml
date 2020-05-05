@@ -1,5 +1,9 @@
+# Prisma.yml controls the generation of some prisma files
+
 # The HTTP endpoint for your Prisma API
+#endpoint: ''
 #endpoint: ''endpoint: https://eu1.prisma.sh/chukwujama-osinachi-victor-45c4ea/hackernews-node/dev
+
 
 
 # Points to the file that contains your datamodel

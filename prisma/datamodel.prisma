@@ -1,8 +1,10 @@
 type Link {
   id: ID! @id
+  createdAt: DateTime! @createdAt
   description: String!
   url: String!
   postedBy: User
+  random: String
   votes: [Vote!]!
 }
 
@@ -17,6 +19,6 @@ type User {
 
 type Vote {
   id: ID! @id
-  link: Link!
   user: User!
+  link: Link!
 }

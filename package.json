@@ -12,5 +12,9 @@
   },
   "scripts": {
     "start": "nodemon src/index.js"
+  },
+  "nodemonConfig": {
+    "watch": "src/",
+    "ext": "js, graphql"
   }
 }

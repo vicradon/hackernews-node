@@ -1,28 +1,7 @@
-enum LinkOrderByInput {
-  description_ASC
-  description_DESC
-  url_ASC
-  url_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type Query {
-  info: String!
-  feed(filter: String, skip: Int, first: Int, orderBy: LinkOrderByInput): Feed!
-}
-
-type Feed {
-  links: [Link!]!
-  count: Int!
-}
-
-type Mutation {
-  post(url: String!, description: String!): Link!
-  signup(email: String!, password: String!, name: String!): AuthPayload
-  login(email: String!, password: String!): AuthPayload
-  vote(linkId: ID!): Vote
-}
+# FYI, '!' means the field cannot be null
+# The typeDefs are the type definition from the app schema
+# TypeDefs eventually become the schema
+# 
 
 type Link {
   id: ID!
@@ -30,6 +9,20 @@ type Link {
   url: String!
   postedBy: User
   votes: [Vote!]!
+}
+
+type Query {
+  feed: [Link!]!
+  link(id: ID!): String
+}
+
+type Mutation {
+  post(url: String!, description: String!): Link!
+  update(id: ID!, url: String!, description: String!): Link!
+  deleteLink(id: ID!): String
+  signup(email: String!, password: String!, name: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+  vote(linkId: ID!): Vote
 }
 
 type AuthPayload {

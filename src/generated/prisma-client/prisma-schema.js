@@ -19,11 +19,15 @@ type BatchPayload {
   count: Long!
 }
 
+scalar DateTime
+
 type Link {
   id: ID!
+  createdAt: DateTime!
   description: String!
   url: String!
   postedBy: User
+  random: String
   votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote!]
 }
 
@@ -38,6 +42,7 @@ input LinkCreateInput {
   description: String!
   url: String!
   postedBy: UserCreateOneWithoutLinksInput
+  random: String
   votes: VoteCreateManyWithoutLinkInput
 }
 
@@ -55,6 +60,7 @@ input LinkCreateWithoutPostedByInput {
   id: ID
   description: String!
   url: String!
+  random: String
   votes: VoteCreateManyWithoutLinkInput
 }
 
@@ -63,6 +69,7 @@ input LinkCreateWithoutVotesInput {
   description: String!
   url: String!
   postedBy: UserCreateOneWithoutLinksInput
+  random: String
 }
 
 type LinkEdge {
@@ -73,16 +80,22 @@ type LinkEdge {
 enum LinkOrderByInput {
   id_ASC
   id_DESC
+  createdAt_ASC
+  createdAt_DESC
   description_ASC
   description_DESC
   url_ASC
   url_DESC
+  random_ASC
+  random_DESC
 }
 
 type LinkPreviousValues {
   id: ID!
+  createdAt: DateTime!
   description: String!
   url: String!
+  random: String
 }
 
 input LinkScalarWhereInput {
@@ -100,6 +113,14 @@ input LinkScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
   description: String
   description_not: String
   description_in: [String!]
@@ -128,6 +149,20 @@ input LinkScalarWhereInput {
   url_not_starts_with: String
   url_ends_with: String
   url_not_ends_with: String
+  random: String
+  random_not: String
+  random_in: [String!]
+  random_not_in: [String!]
+  random_lt: String
+  random_lte: String
+  random_gt: String
+  random_gte: String
+  random_contains: String
+  random_not_contains: String
+  random_starts_with: String
+  random_not_starts_with: String
+  random_ends_with: String
+  random_not_ends_with: String
   AND: [LinkScalarWhereInput!]
   OR: [LinkScalarWhereInput!]
   NOT: [LinkScalarWhereInput!]
@@ -155,17 +190,20 @@ input LinkUpdateInput {
   description: String
   url: String
   postedBy: UserUpdateOneWithoutLinksInput
+  random: String
   votes: VoteUpdateManyWithoutLinkInput
 }
 
 input LinkUpdateManyDataInput {
   description: String
   url: String
+  random: String
 }
 
 input LinkUpdateManyMutationInput {
   description: String
   url: String
+  random: String
 }
 
 input LinkUpdateManyWithoutPostedByInput {
@@ -195,6 +233,7 @@ input LinkUpdateOneRequiredWithoutVotesInput {
 input LinkUpdateWithoutPostedByDataInput {
   description: String
   url: String
+  random: String
   votes: VoteUpdateManyWithoutLinkInput
 }
 
@@ -202,6 +241,7 @@ input LinkUpdateWithoutVotesDataInput {
   description: String
   url: String
   postedBy: UserUpdateOneWithoutLinksInput
+  random: String
 }
 
 input LinkUpdateWithWhereUniqueWithoutPostedByInput {
@@ -235,6 +275,14 @@ input LinkWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
   description: String
   description_not: String
   description_in: [String!]
@@ -264,6 +312,20 @@ input LinkWhereInput {
   url_ends_with: String
   url_not_ends_with: String
   postedBy: UserWhereInput
+  random: String
+  random_not: String
+  random_in: [String!]
+  random_not_in: [String!]
+  random_lt: String
+  random_lte: String
+  random_gt: String
+  random_gte: String
+  random_contains: String
+  random_not_contains: String
+  random_starts_with: String
+  random_not_starts_with: String
+  random_ends_with: String
+  random_not_ends_with: String
   votes_every: VoteWhereInput
   votes_some: VoteWhereInput
   votes_none: VoteWhereInput
@@ -554,8 +616,8 @@ input UserWhereUniqueInput {
 
 type Vote {
   id: ID!
-  link: Link!
   user: User!
+  link: Link!
 }
 
 type VoteConnection {
@@ -566,8 +628,8 @@ type VoteConnection {
 
 input VoteCreateInput {
   id: ID
-  link: LinkCreateOneWithoutVotesInput!
   user: UserCreateOneWithoutVotesInput!
+  link: LinkCreateOneWithoutVotesInput!
 }
 
 input VoteCreateManyWithoutLinkInput {
@@ -643,8 +705,8 @@ input VoteSubscriptionWhereInput {
 }
 
 input VoteUpdateInput {
-  link: LinkUpdateOneRequiredWithoutVotesInput
   user: UserUpdateOneRequiredWithoutVotesInput
+  link: LinkUpdateOneRequiredWithoutVotesInput
 }
 
 input VoteUpdateManyWithoutLinkInput {
@@ -714,8 +776,8 @@ input VoteWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  link: LinkWhereInput
   user: UserWhereInput
+  link: LinkWhereInput
   AND: [VoteWhereInput!]
   OR: [VoteWhereInput!]
   NOT: [VoteWhereInput!]
